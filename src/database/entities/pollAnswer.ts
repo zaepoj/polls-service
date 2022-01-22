@@ -5,12 +5,12 @@ import { PollOptionEntity } from ".";
 
 @Entity()
 export class PollAnswerEntity {
-	@PrimaryKey()
-	id: string = v4();
+  @PrimaryKey()
+  id: string = v4();
 
-	@ManyToOne(() => PollOptionEntity)
-	option!: PollOptionEntity;
+  @ManyToOne(() => PollOptionEntity)
+  option!: PollOptionEntity;
 
-	@ManyToOne(() => PollEntity)
-	poll!: PollEntity;
+  @ManyToOne(() => PollEntity)
+  poll!: PollEntity;
 }

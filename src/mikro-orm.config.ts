@@ -1,11 +1,11 @@
 import {
-	PollAnswerEntity,
-	PollEntity,
-	PollOptionEntity,
+  PollAnswerEntity,
+  PollEntity,
+  PollOptionEntity,
 } from "./database/entities";
 
 export default {
-	entities: [PollEntity, PollOptionEntity, PollAnswerEntity],
-	dbName: "polls",
-	type: "postgresql",
+  entities: [PollEntity, PollOptionEntity, PollAnswerEntity],
+  dbName: "polls",
+  type: "postgresql",
 };

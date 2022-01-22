@@ -4,15 +4,15 @@ import { v4 } from "uuid";
 
 @Entity()
 export class PollOptionEntity {
-	@PrimaryKey()
-	id: string = v4();
+  @PrimaryKey()
+  id: string = v4();
 
-	@Property()
-	value!: string;
+  @Property()
+  value!: string;
 
-	@Property()
-	type!: string;
+  @Property()
+  type!: string;
 
-	@ManyToOne(() => PollEntity)
-	poll!: PollEntity;
+  @ManyToOne(() => PollEntity)
+  poll!: PollEntity;
 }
