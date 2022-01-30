@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from "express";
+import { NotFound } from "http-errors";
 import {
   findPollById,
   getPollAnswerCounts,
@@ -20,7 +21,6 @@ interface PollOptionInput {
 const createPoll = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const input = req.body;
-    console.log(input);
     const pollId = await savePoll(req.body);
     res.send({ pollId });
   } catch (e) {
@@ -32,6 +32,8 @@ const getPoll = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { id } = req.params;
     const poll = await findPollById(id);
+
+    if (!poll) throw new NotFound();
     res.send(poll);
   } catch (e) {
     next(e);

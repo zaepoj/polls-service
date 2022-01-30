@@ -19,7 +19,7 @@ const pollResultListeningClients: {
 const resultsHandler = async (
   req: Request,
   res: Response,
-  next: NextFunction,
+  next: NextFunction
 ) => {
   try {
     const { id } = req.params;
