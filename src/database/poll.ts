@@ -47,7 +47,7 @@ const savePollAnswer = async (AnswerPollInput: AnswerPollInput) => {
     if (!poll) throw new Error("POLL_NOT_FOUND");
 
     const pollOption = await DI.pollOptionRepository.findOne(
-      AnswerPollInput.optionId,
+      AnswerPollInput.optionId
     );
     if (!pollOption) throw new Error("OPTION_NOT_FOUND");
 
@@ -80,13 +80,13 @@ const getPollAnswerCounts = async (id: string) => {
       });
 
       return {
-        optionId: opt.id,
+        ...opt,
         count,
       };
-    }),
+    })
   );
 
-  return counts;
+  return { ...poll, options: counts };
 };
 
 export { savePoll, findPollById, savePollAnswer, getPollAnswerCounts };
