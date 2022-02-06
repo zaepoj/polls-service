@@ -1,0 +1,39 @@
+version: 2
+jobs:
+  build:
+    filters:
+      branches:
+        only:
+          - main
+    docker:
+      - image: circleci/node:latest
+
+    working_directory: ~/repo
+
+    steps:
+      - setup_remote_docker:
+          version: 19.03.13
+
+      - checkout
+
+      - add_ssh_keys:
+          fingerprints:
+            - "49:ef:84:6c:23:3c:b9:9e:dc:3c:c2:23:2e:08:5c:c6"
+
+      - run: echo $DOCKERHUB_USER $DOCKERHUB_PASSWORD $CLIENT_ID_SECRET
+
+      - run: yarn install
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+
+      - run: yarn build
+
+      - run: export VERSION=$(node -p "require('./package.json').version") && docker build -t sakuru9/polls-service:latest -t sakuru9/polls-service:$VERSION .
+
+      - run: docker login -u=$DOCKERHUB_USER -p=$DOCKERHUB_PASSWORD
+      - run: export VERSION=$(node -p "require('./package.json').version") && docker push sakuru9/polls-service:$VERSION
+      - run: docker push sakuru9/polls-service:latest
+      - run: ssh -o StrictHostKeyChecking=no $SSH_USER@henril.com  -t "cd service-files; git pull; cd polls-service; docker login; docker pull sakuru9/polls-service:latest; docker-compose -f polls-service.yml up -d"
