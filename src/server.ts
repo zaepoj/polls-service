@@ -26,6 +26,8 @@ app.listen(4011, async () => {
 		entities: [PollEntity, PollOptionEntity, PollAnswerEntity],
 		dbName: "polls",
 		type: "postgresql",
+		user: "postgres",
+		password: process.env.DB_PASS,
 	});
 
 	DI.orm = orm;
