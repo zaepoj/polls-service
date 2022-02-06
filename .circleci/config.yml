@@ -18,7 +18,7 @@ jobs:
 
       - add_ssh_keys:
           fingerprints:
-            - "49:ef:84:6c:23:3c:b9:9e:dc:3c:c2:23:2e:08:5c:c6"
+            - "8c:1f:03:3b:fa:d2:53:94:d0:10:ee:2d:9d:84:c0:0a"
 
       - run: echo $DOCKERHUB_USER $DOCKERHUB_PASSWORD $CLIENT_ID_SECRET
 
