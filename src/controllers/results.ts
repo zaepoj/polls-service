@@ -65,9 +65,11 @@ const sendResultsEventToClients = async (pollId: string) => {
   const results = await getPollAnswerCounts(pollId);
   const pollClients = pollResultListeningClients[pollId];
 
-  pollClients.clients.forEach(async (client) => {
-    client.response.write(`data: ${JSON.stringify(results)}\n\n`);
-  });
+  if (pollClients) {
+    pollClients.clients.forEach(async (client) => {
+      client.response.write(`data: ${JSON.stringify(results)}\n\n`);
+    });
+  }
 };
 
 export { resultsHandler, sendResultsEventToClients };
