@@ -12,4 +12,4 @@ ENV NODE_ENV production
 
 RUN npm run build
 
-CMD ["node", "dist/index.js"]
+CMD ["node", "dist/server.js"]
